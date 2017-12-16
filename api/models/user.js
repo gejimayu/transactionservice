@@ -12,7 +12,7 @@ const userSchema = new mongoose.Schema({
 	password: {
 		type: String,
 		required: true
-	}
+	},
 
 	role: {
 		type: String,
@@ -21,10 +21,10 @@ const userSchema = new mongoose.Schema({
 });
 
 //hash password on save
-userSchema.pre('save', async function(next) {
+userSchema.pre('save', function(next) {
 	try {
-		const salt = bcrypt.genSalt(10);
-		const passwordHash = await bcrypt.hash(this.password, salt);
+		const salt = bcrypt.genSaltSync(10);
+		const passwordHash = bcrypt.hashSync(this.password, salt);
 		this.password = passwordHash;
 		next();
 	} catch(err) {

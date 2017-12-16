@@ -1,16 +1,20 @@
 const express 		= require('express'),
 			morgan 			= require('morgan'),
 			bodyParser 	= require('body-parser'),
-			mongoose 		= require('mongoose');
+			mongoose 		= require('mongoose'),
+			UserRoutes 	= require('./api/routes/users.js'),
+			app					= express();
+
 
 //initialization
 mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://localhost/salestock');
 
-const app = express();
-
 app.use(morgan('dev'));
 app.use(bodyParser.json());
+
+//set routing
+app.use('/users', UserRoutes);
 
 //listen to request
 const port = process.env.PORT || 3000;
