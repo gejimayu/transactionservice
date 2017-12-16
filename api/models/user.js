@@ -20,4 +20,25 @@ const userSchema = new mongoose.Schema({
 	}
 });
 
+//hash password on save
+userSchema.pre('save', async function(next) {
+	try {
+		const salt = bcrypt.genSalt(10);
+		const passwordHash = await bcrypt.hash(this.password, salt);
+		this.password = passwordHash;
+		next();
+	} catch(err) {
+		next(err);
+	}
+});
+
+//add method which checks password using hashing
+userSchema.methods.isValidPassword = async function (newPassword) {
+  try {
+    return await bcrypt.compare(newPassword, this.password)
+  } catch (error) {
+    throw new Error(error)
+  }
+};
+
 module.exports = mongoose.model('User', userSchema);
