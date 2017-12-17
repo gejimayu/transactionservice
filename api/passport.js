@@ -3,7 +3,7 @@ const passport 			= require('passport'),
 			ExtractJwt 		= require('passport-jwt').ExtractJwt,
 			LocalStrategy = require('passport-local').Strategy,
 			JWT_SECRET 		= require('./config/index.js').JWT_SECRET,
-			User 					= require('../models/user');
+			User 					= require('./models/user');
 
 var opts = {};
 opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
@@ -19,10 +19,10 @@ passport.use(opts, function(jwt_payload, done) {
     } else {
         return done(null, false);
     }
-	};
+	});
 });
 
-passport.use(new LocalStrategy(
+var localStrategyConf = new LocalStrategy(
   function(username, password, done) {
     User.findOne({ username: username }, function (err, user) {
       if (err) { 
@@ -38,4 +38,5 @@ passport.use(new LocalStrategy(
       return done(null, user);
     });
   }
-));
+);
+passport.use(localStrategyConf);

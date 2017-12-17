@@ -1,3 +1,3 @@
-module exports = {
+module.exports = {
 	JWT_SECRET: 'apiauth'
 }

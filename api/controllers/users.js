@@ -1,4 +1,15 @@
-const User = require('../models/user.js');
+const JWT 				= require('jsonwebtoken'),
+			User 				= require('../models/user.js'),
+			JWT_SECRET 	= require('../config/index.js').JWT_SECRET;
+
+signToken = function(user) {
+	return JWT.sign({
+    iss: 'ApiAuth',   //issuer
+    sub: user.id,     //subject checked
+    iat: new Date().getTime(),   //issued at
+    exp: new Date().setDate(new Date().getDate() + 1)   //expired at the next day
+  }, JWT_SECRET)
+}
 
 exports.register = function(req, res) {
 	var newUser = new User({
@@ -8,17 +19,21 @@ exports.register = function(req, res) {
 	});
 
 	User.findOne({username: newUser.username}, function(err, result) {
-		if (err)
+		if (err) {
 			res.status(500).json({ error: 'Error in finding user' });
+		}
 
-		if (result)
+		if (result) {
 			res.status(403).json({ error: 'Username is already in use' });
+		}
 
-		newUser.save(function(err, savedUser){
+		newUser.save(async function(err, savedUser){
 			if (err)
 				res.status(500).json({ error: 'Error in saving user' });
-			else
-				res.status(200).json({ msg: 'succeded'});
+			else {
+				var token = await signToken(savedUser);
+				res.status(200).json({ token });
+			}
 		});
 	});
 };
