@@ -1,10 +1,6 @@
 const mongoose 	= require('mongoose');
 
 const couponSchema = new mongoose.Schema({
-	desc: {
-		type: String
-	},
-
 	code: {
 		type: String,
 		required: true,
@@ -33,4 +29,5 @@ const couponSchema = new mongoose.Schema({
 		required: true
 	}
 });
-module.exports = mongoose.model('Product', productSchema);
+
+module.exports = mongoose.model('Coupon', couponSchema);
