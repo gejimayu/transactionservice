@@ -2,7 +2,7 @@ const JWT 				= require('jsonwebtoken'),
 			User 				= require('../models/user.js'),
 			JWT_SECRET 	= require('../config/index.js').JWT_SECRET;
 
-signToken = function(user) {
+signToken = async function(user) {
 	return JWT.sign({
     iss: 'ApiAuth',   //issuer
     sub: user.id,     //subject checked
@@ -11,29 +11,38 @@ signToken = function(user) {
   }, JWT_SECRET)
 }
 
-exports.register = function(req, res) {
-	var newUser = new User({
-		username: req.body.username,
-		password: req.body.password,
-		role: req.body.role
-	});
+module.exports = {
+	register: 
+		function(req, res) {
+			var newUser = new User({
+				username: req.body.username,
+				password: req.body.password,
+				role: req.body.role
+			});
 
-	User.findOne({username: newUser.username}, function(err, result) {
-		if (err) {
-			res.status(500).json({ error: 'Error in finding user' });
+			User.findOne({username: newUser.username}, function(err, result) {
+				if (err) {
+					res.status(500).json({ error: 'Error in finding user' });
+				}
+
+				if (result) {
+					res.status(403).json({ error: 'Username is already in use' });
+				}
+
+				newUser.save(async function(err, savedUser){
+					if (err)
+						res.status(500).json({ error: 'Error in saving user' });
+					else {
+						var token = await signToken(savedUser);
+						res.status(200).json({ token });
+					}
+				});
+			})
+		},
+
+	login: 
+		async function(req, res) {
+			var token = await signToken(req.user);
+			res.status(200).json({ token });
 		}
-
-		if (result) {
-			res.status(403).json({ error: 'Username is already in use' });
-		}
-
-		newUser.save(async function(err, savedUser){
-			if (err)
-				res.status(500).json({ error: 'Error in saving user' });
-			else {
-				var token = await signToken(savedUser);
-				res.status(200).json({ token });
-			}
-		});
-	});
 };
