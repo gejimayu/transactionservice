@@ -10,7 +10,7 @@ opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
 opts.secretOrKey = JWT_SECRET;
 
 passport.use(opts, function(jwt_payload, done) {
-	User.findOne({id: jwt_payload.sub}, function(err, result){
+	User.findOne({id: jwt_payload.sub}, function(err, user){
 		if (err) {
         return done(err, false);
     }
