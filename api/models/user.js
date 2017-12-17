@@ -1,5 +1,6 @@
 const mongoose 	= require('mongoose'),
-			bcrypt 		= require('bcryptjs');
+			bcrypt 		= require('bcryptjs'),
+			Product		= require('./product.js');
 
 const userSchema = new mongoose.Schema({
 	username: {
@@ -17,7 +18,17 @@ const userSchema = new mongoose.Schema({
 	role: {
 		type: String,
 		required: true
-	}
+	},
+
+	totalPrice: Number,
+
+	items: [{
+		productid: {
+				type: mongoose.Schema.Types.ObjectId,
+				ref: 'Product'
+		},
+		quantity: Number
+	}]
 });
 
 //hash password on save

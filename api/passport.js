@@ -5,13 +5,15 @@ const passport 			= require('passport'),
 			JWT_SECRET 		= require('./config/index.js').JWT_SECRET,
 			User 					= require('./models/user');
 
+//JWT Authentication Configuration using Bearer Token
 var opts = {};
 opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
 opts.secretOrKey = JWT_SECRET;
 
-passport.use(opts, function(jwt_payload, done) {
-	User.findOne({id: jwt_payload.sub}, function(err, user){
-		if (err) {
+//apply to the passport instance
+passport.use(new JwtStrategy(opts, function(jwt_payload, done) {
+  User.findById(jwt_payload.sub, function(err, user){
+    if (err) {
         return done(err, false);
     }
     if (user) {
@@ -19,24 +21,27 @@ passport.use(opts, function(jwt_payload, done) {
     } else {
         return done(null, false);
     }
-	});
-});
+  });
+}));
 
+//Local Strategy Authentication Configuration using username and password
 var localStrategyConf = new LocalStrategy(
   function(username, password, done) {
     User.findOne({ username: username }, function (err, user) {
       if (err) { 
-      	return done(err); 
+        return done(err); 
       }
       if (!user) { 
-      	return done(null, false); 
+        return done(null, false); 
       }
       if (!user.isValidPassword(password)) { 
-      	return done(null, false); 
+        return done(null, false); 
       }
       
       return done(null, user);
     });
   }
 );
+
 passport.use(localStrategyConf);
+  
