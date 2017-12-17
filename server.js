@@ -28,7 +28,7 @@ app.use(passport.initialize());
 //seed database
 seedCoupon();
 seedProduct();
-// seedUser();
+seedUser();
 
 //SET ROUTING
 app.use('/users', UserRoutes);

@@ -9,12 +9,16 @@ module.exports = {
 			var userid = req.user.id
 
 			//find related user
-			User.findById(userid).populate({path: 'items.productid'}).exec(function(err, foundUser) {
+			User.findById(userid).populate({path: 'items.products'}).exec(function(err, foundUser) {
 				if (err) {
-					res.status(500).json({error: err});
+					res.status(500).json({status: 'error', message: err});
 				}
 				else {
-					res.status(200).json({message: foundUser.items});
+					var msg = {
+						total: foundUser.totalPrice,
+						items: foundUser.items
+					};
+					res.status(200).json({message: msg});
 				}
 			});
 		},
@@ -35,28 +39,33 @@ module.exports = {
 					//find related product
 					Product.findOne({prod_id: prod_id}, function(err2, foundProduct) {
 						if (err2) {
-							res.status(500).json({error: err2});
+							res.status(500).json({status: "error", message: err2});
 						}
 						else {
 							if (!foundProduct) { 
-								res.status(400).json({error: "Product not found"});
+								res.status(400).json({status: "error", message: "Product not found"});
 							}
 							else 
-							if (foundProduct.quantity <= 0) {
-								res.status(400).json({error: "Product out of stock"});
+							if (foundProduct.stock <= 0) {
+								res.status(400).json({status: "error", message: "Product out of stock"});
 							}
 							else {
 								foundUser.items.push({
-									productid: foundProduct._id,
+									products: foundProduct._id,
 									quantity: quantity
 								});
 								foundUser.totalPrice = foundProduct.price * quantity;
 								foundUser.save();
-								res.status(200).json({success: "Product succesfully added to the cart"});
+								res.status(200).json({status: "success", message: "Product succesfully added to the cart"});
 							}
 						}
 					});
 				}
 			});
 		},
+
+	deleteProduct: //delete a product from shopping cart
+		function(req, res) {
+
+		}
 };
