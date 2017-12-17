@@ -6,9 +6,24 @@ const orderSchema = new mongoose.Schema({
 		ref: 'User'
 	},
 
-	shipmentInfo: {
-		type: mongoose.Schema.Types.ObjectId,
-		ref: 'Shipment'
+	name: {
+		type: String, 
+		required: true
+	},
+
+	phonenumber: {
+		type: String, 
+		required: true
+	},
+
+	email: {
+		type: String, 
+		required: true
+	},
+
+	address: {
+		type: String, 
+		required: true
 	},
 
 	order_date: {
@@ -26,7 +41,7 @@ const orderSchema = new mongoose.Schema({
 	coupon: {
 		type: mongoose.Schema.Types.ObjectId,
 		ref: 'Coupon'
-	}
+	},
 
 	items: [
 		id: {
@@ -34,7 +49,12 @@ const orderSchema = new mongoose.Schema({
 				ref: 'Product'
 		},
 		quantity: Number
-	]
+	],
+
+	shipmentInfo: {
+		type: mongoose.Schema.Types.ObjectId,
+		ref: 'Shipment'
+	}
 });
 
 module.exports = mongoose.model('Order', orderSchema);
