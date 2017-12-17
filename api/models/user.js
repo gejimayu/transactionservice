@@ -33,12 +33,8 @@ userSchema.pre('save', function(next) {
 });
 
 //add method which checks password using hashing
-userSchema.methods.isValidPassword = async function (newPassword) {
-  try {
-    return await bcrypt.compare(newPassword, this.password)
-  } catch (error) {
-    throw new Error(error)
-  }
+userSchema.methods.isValidPassword = function (newPassword) {
+  return bcrypt.compareSync(newPassword, this.password)
 };
 
 module.exports = mongoose.model('User', userSchema);
