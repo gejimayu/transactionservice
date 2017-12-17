@@ -3,6 +3,22 @@ const User = require('../models/user.js'),
 
 module.exports = {
 
+	showCart: //show the shopping cart
+		function(req, res) {
+			//get data from request
+			var userid = req.user.id
+
+			//find related user
+			User.findById(userid).populate({path: 'items.productid'}).exec(function(err, foundUser) {
+				if (err) {
+					res.status(500).json({error: err});
+				}
+				else {
+					res.status(200).json({message: foundUser.items});
+				}
+			});
+		},
+
 	addProduct: //add products to shopping cart
 		function(req, res) {
 			//get data from request
@@ -31,7 +47,7 @@ module.exports = {
 							}
 							else {
 								foundUser.items.push({
-									productid: foundProduct,
+									productid: foundProduct._id,
 									quantity: quantity
 								});
 								foundUser.totalPrice = foundProduct.price * quantity;

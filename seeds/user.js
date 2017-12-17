@@ -34,4 +34,4 @@ var data = [
 // 	})
 // }
 
-//module.exports = seedDB;
+// module.exports = seedDB;
