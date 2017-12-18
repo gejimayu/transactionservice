@@ -7,6 +7,9 @@
     "start": "SET NODE_ENV=dev && node server.js",
     "test": "mocha --timeout 10000"
   },
+  "engines": {
+    "node": "8.9.1"
+  }
   "repository": {
     "type": "git",
     "url": "git+https://github.com/gejimayu/transactionservice.git"
@@ -15,7 +18,7 @@
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/gejimayu/transactionservice/issues"
-  },
+  }, 
   "homepage": "https://github.com/gejimayu/transactionservice#readme",
   "dependencies": {
     "bcryptjs": "^2.4.3",
