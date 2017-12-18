@@ -33,7 +33,7 @@ const orderSchema = new mongoose.Schema({
 
 	status: {
 		type: String,
-		default: 'Unconfirmed'
+		default: 'Ready for payment'
 	},
 
 	totalPrice: Number,
@@ -43,17 +43,17 @@ const orderSchema = new mongoose.Schema({
 		ref: 'Coupon'
 	},
 
-	items: [
-		id: {
+	items: [{
+		products: {
 				type: mongoose.Schema.Types.ObjectId,
 				ref: 'Product'
 		},
 		quantity: Number
-	],
+	}],
 
-	shipmentInfo: {
+	payment: {
 		type: mongoose.Schema.Types.ObjectId,
-		ref: 'Shipment'
+		ref: 'Payment'
 	}
 });
 
