@@ -1,6 +1,7 @@
 const Order = require('../models/order.js'),
 			Product = require('../models/product.js'),
-			Coupon = require('../models/coupon.js');
+			Coupon = require('../models/coupon.js'),
+			Payment = require('../models/payment.js');
 
 module.exports = {
 
@@ -70,6 +71,42 @@ module.exports = {
 						currentUser.save();
 
 						res.status(200).json({status: 'success', message: 'Order submitted, ready for payment'});
+					}
+				});
+			}
+		},
+
+	verifyPayment:
+		function(req, res) {
+			//get data from body request
+			var order_id = req.params.order_id;
+			var newPayment = {
+				bank: req.body.bank,
+				account_number: req.body.account_number,
+				name: req.body.name
+			};
+
+			//validate input
+			if (!bank || !account_number || !name) {
+				res.status(400).json({status:'error', message: 'Please fill all the information'});
+			}
+			else {
+				Payment.create(newPayment, function(err, createdPayment) {
+					if (err) {
+						res.status(500).json({status: 'error', message: err});
+					}
+					else {
+						//find related order and change its status
+						Order.findById(order_id, function(err2, foundOrder) {
+							if (err) {
+								res.status(500).json({status: 'error', message: err});
+							}
+							else {
+								foundOrder.payment = createdPayment.id;
+								foundOrder.status = 'Waiting for verification';
+								foundOrder.save();						
+							}
+						});
 					}
 				});
 			}

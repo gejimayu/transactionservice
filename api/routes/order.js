@@ -5,5 +5,6 @@ const express 					= require('express'),
 			OrderController 	= require('../controllers/order.js');
 
 router.post('/', passport.authenticate('jwt', { session: false }), OrderController.submitOrder);
+router.post('/:order_id/verify', passport.authenticate('jwt', { session: false }), OrderController.verifyPayment);
 
 module.exports = router;
