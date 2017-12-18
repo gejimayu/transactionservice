@@ -13,4 +13,7 @@ router.get('/:order_id', passport.authenticate('jwt', { session: false }), Admin
 //Admin can update a particular order's status
 router.post('/:order_id', passport.authenticate('jwt', { session: false }), AdminController.validateOrder);
 
+//Admin can change order's status to shipped and create shipment data
+router.put('/:order_id', passport.authenticate('jwt', { session: false }), AdminController.shipOrder);
+
 module.exports = router;

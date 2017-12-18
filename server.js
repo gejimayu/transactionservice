@@ -8,6 +8,7 @@ const express 						= require('express'),
 			CouponRoutes 				= require('./api/routes/coupon.js'),
 			OrderRoutes					= require('./api/routes/order.js'),
 			AdminRoutes					= require('./api/routes/admin.js'),
+			ShipmentRoutes			= require('./api/routes/shipment.js'),
 			seedCoupon					= require('./seeds/coupon.js'),
 			seedProduct					= require('./seeds/product.js'),
 			seedUser						= require('./seeds/user.js'),
@@ -40,6 +41,7 @@ app.use('/coupons', CouponRoutes);
 app.use('/shoppingcart', ShoppingcartRoutes);
 app.use('/order', OrderRoutes);
 app.use('/admin', AdminRoutes);
+app.use('/track', ShipmentRoutes);
 
 //lLISTEN TO REQUEST
 const port = process.env.PORT || 3000;
