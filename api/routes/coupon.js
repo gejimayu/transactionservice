@@ -6,6 +6,7 @@ const express 								= require('express'),
 			ShoppingCartController 	= require('../controllers/shoppingcart.js'),
 			CouponController				= require('../controllers/coupon.js');
 
+//Customer can apply a coupon
 router.post('/', passport.authenticate('jwt', { session: false }), CouponController.addCoupon);
 
 module.exports = router;

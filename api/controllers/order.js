@@ -1,8 +1,8 @@
-const Order = require('../models/order.js'),
-			Product = require('../models/product.js'),
-			Coupon = require('../models/coupon.js'),
-			Payment = require('../models/payment.js'),
-			User = require('../models/user.js');
+const Order 		= require('../models/order.js'),
+			Product 	= require('../models/product.js'),
+			Coupon 		= require('../models/coupon.js'),
+			Payment 	= require('../models/payment.js'),
+			User 			= require('../models/user.js');
 
 module.exports = {
 

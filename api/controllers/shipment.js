@@ -13,7 +13,7 @@ module.exports = {
 				}
 				else {
 					if (!foundShipment) {
-						res.status(200).json({status: 'error', message: 'Shipment '+ orderid + ' is not found'});
+						res.status(200).json({status: 'error', message: 'Shipment '+ shipping_id + ' is not found'});
 					}
 					else {
 						res.status(200).json({status: 'success', message: foundShipment});

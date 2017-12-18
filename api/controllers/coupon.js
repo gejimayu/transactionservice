@@ -1,5 +1,5 @@
-const User = require('../models/user.js'),
-			Coupon = require('../models/coupon.js');
+const User 		= require('../models/user.js'),
+			Coupon 	= require('../models/coupon.js');
 
 module.exports = {
 

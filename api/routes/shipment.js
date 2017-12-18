@@ -5,6 +5,6 @@ const express 					= require('express'),
 			ShipmentController 	= require('../controllers/shipment.js');
 
 //Customer can track order
-router.get('/:order_id', passport.authenticate('jwt', { session: false }), ShipmentController.trackOrder);
+router.get('/:shipping_id', passport.authenticate('jwt', { session: false }), ShipmentController.trackOrder);
 
 module.exports = router;
