@@ -18,7 +18,7 @@ module.exports = {
 						items: foundUser.items,
 						coupon: foundUser.coupon
 					};
-					res.status(200).json({message: msg});
+					res.status(200).json({status: 'success', message: msg});
 				}
 			});
 		},

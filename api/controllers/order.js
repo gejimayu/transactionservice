@@ -1,9 +1,26 @@
 const Order = require('../models/order.js'),
 			Product = require('../models/product.js'),
 			Coupon = require('../models/coupon.js'),
-			Payment = require('../models/payment.js');
+			Payment = require('../models/payment.js'),
+			User = require('../models/user.js');
 
 module.exports = {
+
+	showOrder:
+		function(req, res) {
+			//find related user and populate its data
+			Order.find({user: req.user.id}).populate({path: 'items.products'})
+																			.populate('coupon')	
+																			.populate('payment')
+																			.exec(function(err, foundOrder) {
+				if (err) {
+					res.status(500).json({status: 'error', message: err});
+				}
+				else {
+					res.status(200).json({status: 'success', message: foundOrder});
+				}
+			});
+		},
 
 	submitOrder: 
 		function(req, res) {
@@ -87,7 +104,7 @@ module.exports = {
 			};
 
 			//validate input
-			if (!bank || !account_number || !name) {
+			if (!newPayment.bank || !newPayment.account_number || !newPayment.name) {
 				res.status(400).json({status:'error', message: 'Please fill all the information'});
 			}
 			else {
@@ -101,10 +118,15 @@ module.exports = {
 							if (err) {
 								res.status(500).json({status: 'error', message: err});
 							}
+							else 
+							if (!foundOrder){ //related order not found
+								res.status(400).json({status: 'error', message: 'Order not found'});
+							}
 							else {
 								foundOrder.payment = createdPayment.id;
 								foundOrder.status = 'Waiting for verification';
-								foundOrder.save();						
+								foundOrder.save();	
+								res.status(200).json({status: 'success', message: 'Verification received'});
 							}
 						});
 					}
