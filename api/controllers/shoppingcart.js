@@ -8,16 +8,16 @@ module.exports = {
 			var userid = req.user.id;
 
 			//find related user
-			User.findById(userid).populate({path: 'items.products'}).exec(function(err, foundUser) {
+			User.findById(userid).populate({path: 'items.products'}).populate('coupon').exec(function(err, foundUser) {
 				if (err) {
 					res.status(500).json({status: 'error', message: err});
 				}
 				else {
 					var msg = {
 						total: foundUser.totalPrice,
-						items: foundUser.items
+						items: foundUser.items,
+						coupon: foundUser.coupon
 					};
-
 					res.status(200).json({message: msg});
 				}
 			});
@@ -40,7 +40,7 @@ module.exports = {
 						res.status(400).json({status: "error", message: "Product not found"});
 					}
 					else 
-					if (foundProduct.stock <= 0) {
+					if (foundProduct.stock < quantity) {
 						res.status(400).json({status: "error", message: "Product out of stock"});
 					}
 					else {
@@ -72,7 +72,6 @@ module.exports = {
 					//find particular product in user's cart
 					var found = false;
 					for (var i = 0; i < foundUser.items.length; i++) {
-						console.log(foundUser.items[i].products.prod_id);
 						if (foundUser.items[i].products.prod_id == product_id) {
 							found = true;
 							foundUser.items.splice(i, 1); //remove

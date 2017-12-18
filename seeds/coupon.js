@@ -13,7 +13,7 @@ var data = [
     {
     	code: 'KUPONWOW',
       percentage_discount: 90,
-      quantity: 1,
+      quantity: 0,
       start_valid: new Date('2017-01-01'),
       end_valid: new Date('2017-12-31')
     },

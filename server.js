@@ -1,13 +1,15 @@
-const express 			= require('express'),
-			morgan 				= require('morgan'),
-			bodyParser 		= require('body-parser'),
-			passport			= require('passport'),
-			mongoose 			= require('mongoose'),
-			UserRoutes 		= require('./api/routes/users.js'),
-			seedCoupon		= require('./seeds/coupon.js'),
-			seedProduct		= require('./seeds/product.js'),
-			seedUser			= require('./seeds/user.js'),
-			app						= express();
+const express 						= require('express'),
+			morgan 							= require('morgan'),
+			bodyParser 					= require('body-parser'),
+			passport				 		= require('passport'),
+			mongoose 						= require('mongoose'),
+			UserRoutes 					= require('./api/routes/users.js'),
+			ShoppingcartRoutes 	= require('./api/routes/shoppingcart.js'),
+			CouponRoutes 				= require('./api/routes/coupon.js'),
+			seedCoupon					= require('./seeds/coupon.js'),
+			seedProduct					= require('./seeds/product.js'),
+			seedUser						= require('./seeds/user.js'),
+			app									= express();
 
 
 //INITIALIZATION
@@ -32,6 +34,8 @@ app.use(passport.initialize());
 
 //SET ROUTING
 app.use('/users', UserRoutes);
+app.use('/coupons', CouponRoutes);
+app.use('/shoppingcart', ShoppingcartRoutes);
 
 //lLISTEN TO REQUEST
 const port = process.env.PORT || 3000;

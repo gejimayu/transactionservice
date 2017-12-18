@@ -1,6 +1,7 @@
 const mongoose 	= require('mongoose'),
 			bcrypt 		= require('bcryptjs'),
-			Product		= require('./product.js');
+			Product		= require('./product.js'),
+			Coupon    = require('./coupon.js');
 
 const userSchema = new mongoose.Schema({
 	username: {
@@ -28,7 +29,12 @@ const userSchema = new mongoose.Schema({
 				ref: 'Product'
 		},
 		quantity: Number
-	}]
+	}],
+
+	coupon: {
+		type: mongoose.Schema.Types.ObjectId,
+		ref: 'Coupon'
+	}
 });
 
 //hash password on save
