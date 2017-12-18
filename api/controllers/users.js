@@ -22,19 +22,19 @@ module.exports = {
 
 			User.findOne({username: newUser.username}, function(err, result) {
 				if (err) {
-					res.status(500).json({ error: 'Error in finding user' });
+					res.status(500).json({status: 'error', message: err });
 				}
 
 				if (result) {
-					res.status(403).json({ error: 'Username is already in use' });
+					res.status(403).json({status: 'error', message: 'Username is already in use' });
 				}
 
 				newUser.save(async function(err, savedUser){
 					if (err)
-						res.status(500).json({ error: 'Error in saving user' });
+						res.status(500).json({status: 'error', message: 'Error in saving user' });
 					else {
 						var token = await signToken(savedUser);
-						res.status(200).json({ token });
+						res.status(200).json({status: 'success', message: token });
 					}
 				});
 			})
@@ -43,6 +43,6 @@ module.exports = {
 	login: 
 		async function(req, res) {
 			var token = await signToken(req.user);
-			res.status(200).json({ token });
+			res.status(200).json({status: 'success', message: token });
 		}
 };

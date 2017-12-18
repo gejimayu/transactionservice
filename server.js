@@ -12,20 +12,24 @@ const express 						= require('express'),
 			seedCoupon					= require('./seeds/coupon.js'),
 			seedProduct					= require('./seeds/product.js'),
 			seedUser						= require('./seeds/user.js'),
-			app									= express();
+			app									= express(),
+			config 							= require('config');
 
 
 //INITIALIZATION
 
-//connect to DB
+//db connection      
 mongoose.connect('mongodb://localhost/salestock');
 
 //body parser for post request
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-//log to console
-app.use(morgan('dev'));
+//don't show the log when it is test
+if(config.util.getEnv('NODE_ENV') !== 'test') {
+    //use morgan to log at command line
+    app.use(morgan('dev')); 
+}
 
 // Use the passport package in our application
 app.use(passport.initialize());
@@ -47,3 +51,5 @@ app.use('/track', ShipmentRoutes);
 const port = process.env.PORT || 3000;
 app.listen(port);
 console.log('Server listening at ' + port);
+
+module.exports = app; // for testing

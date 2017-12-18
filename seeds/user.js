@@ -9,6 +9,30 @@ var data = [
     },
 
     {
+      username: 'wedew2',
+      password: 'asdbc',
+      role: 'user'
+    },
+
+    {
+      username: 'wedew3',
+      password: 'asdbc',
+      role: 'user'
+    },
+
+    {
+      username: 'wedew4',
+      password: 'asdbc',
+      role: 'user'
+    },
+
+    {
+      username: 'wedew5',
+      password: 'asdbc',
+      role: 'user'
+    },
+
+    {
       username: 'admin',
       password: 'asdbc',
       role: 'admin'

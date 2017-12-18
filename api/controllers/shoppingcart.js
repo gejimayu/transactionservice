@@ -30,31 +30,37 @@ module.exports = {
 			var quantity = req.body.quantity;
 			var currentUser = req.user;
 
-			//find related product
-			Product.findOne({prod_id: prod_id}, function(err2, foundProduct) {
-				if (err2) {
-					res.status(500).json({status: "error", message: err2});
-				}
-				else {
-					if (!foundProduct) { 
-						res.status(400).json({status: "error", message: "Product not found"});
-					}
-					else 
-					if (foundProduct.stock < quantity) {
-						res.status(400).json({status: "error", message: "Product out of stock"});
+			//validate data
+			if (!prod_id || !quantity) {
+				res.status(400).json({status: "error", message: "Please fill all the information required"});
+			}
+			else {
+				//find related product
+				Product.findOne({prod_id: prod_id}, function(err2, foundProduct) {
+					if (err2) {
+						res.status(500).json({status: "error", message: err2});
 					}
 					else {
-						currentUser.items.push({
-							products: foundProduct._id,
-							quantity: quantity
-						});
-						currentUser.totalPrice = foundProduct.price * quantity;
-						currentUser.save();
+						if (!foundProduct) { 
+							res.status(400).json({status: "error", message: "Product not found"});
+						}
+						else 
+						if (foundProduct.stock < quantity) {
+							res.status(400).json({status: "error", message: "Product out of stock"});
+						}
+						else {
+							currentUser.items.push({
+								products: foundProduct._id,
+								quantity: quantity
+							});
+							currentUser.totalPrice = foundProduct.price * quantity;
+							currentUser.save();
 
-						res.status(200).json({status: "success", message: "Product succesfully added to the cart"});
+							res.status(200).json({status: "success", message: "Product succesfully added to the cart"});
+						}
 					}
-				}
-			});
+				});
+			}
 		},
 
 	deleteProduct: //delete a product from shopping cart
