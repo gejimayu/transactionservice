@@ -35,7 +35,7 @@ app.use(passport.initialize());
 // seedUser();
 
 //SET ROUTING
-app.use('/users', UserRoutes);
+app.use('/', UserRoutes);
 app.use('/coupons', CouponRoutes);
 app.use('/shoppingcart', ShoppingcartRoutes);
 app.use('/order', OrderRoutes);

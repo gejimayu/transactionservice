@@ -7,10 +7,10 @@ const express 					= require('express'),
 //Admin can view all of submitted orders
 router.get('/', passport.authenticate('jwt', { session: false }), AdminController.showAllOrders);
 
-//Customer can submit an order
-// router.post('/', passport.authenticate('jwt', { session: false }), OrderController.submitOrder);
+//Admin can view a specific order
+router.get('/:order_id', passport.authenticate('jwt', { session: false }), AdminController.showAnOrder);
 
-//Customer can verify payment of an order
-// router.post('/:order_id', passport.authenticate('jwt', { session: false }), OrderController.verifyPayment);
+//Admin can update a particular order's status
+router.post('/:order_id', passport.authenticate('jwt', { session: false }), AdminController.validateOrder);
 
 module.exports = router;

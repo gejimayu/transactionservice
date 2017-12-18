@@ -54,6 +54,11 @@ const orderSchema = new mongoose.Schema({
 	payment: {
 		type: mongoose.Schema.Types.ObjectId,
 		ref: 'Payment'
+	},
+
+	shipment: {
+		shipping_id: mongoose.Schema.Types.ObjectId,
+		status: String
 	}
 });
 

@@ -87,7 +87,11 @@ module.exports = {
 						currentUser.coupon = null;
 						currentUser.save();
 
-						res.status(200).json({status: 'success', message: 'Order submitted, ready for payment'});
+						res.status(200).json({
+							status: 'success', 
+							message: 'Order submitted, ready for payment',
+							orderid: createdOrder.id
+						});
 					}
 				});
 			}
