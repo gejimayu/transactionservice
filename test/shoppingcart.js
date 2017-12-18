@@ -23,7 +23,7 @@ describe('ShoppingCart', () => {
            .post('/login')
            .set('Accept', 'application/json')
            .set('Content-Type', 'application/json')
-           .send({ username: 'wedew2', password: 'asdbc' })
+           .send({ username: 'wedew4', password: 'asdbc' })
            .expect(200)
            .expect('Content-Type', /json/)
            .expect(function(response) {
