@@ -26,9 +26,9 @@ app.use(morgan('dev'));
 app.use(passport.initialize());
 
 //seed database
-seedCoupon();
-seedProduct();
-seedUser();
+// seedCoupon();
+// seedProduct();
+// seedUser();
 
 //SET ROUTING
 app.use('/users', UserRoutes);
