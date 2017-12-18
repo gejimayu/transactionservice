@@ -35,9 +35,9 @@ if(config.util.getEnv('NODE_ENV') !== 'test') {
 app.use(passport.initialize());
 
 //seed database
-// seedCoupon();
-// seedProduct();
-// seedUser();
+seedCoupon();
+seedProduct();
+seedUser();
 
 //SET ROUTING
 app.use('/', UserRoutes);

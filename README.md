@@ -39,6 +39,19 @@ Additional Assumptions :
 <li>Updating shipping status is considered out of scope of this web API, which only handles Order Transaction</li>
 </ol>
 
+## Installation
+
+### Download
+
+1. [Node.js](https://nodejs.org/en/) - Event-driven I/O server-side JavaScript environment
+2. [Mongodb](https://www.mongodb.com/) - NoSQL, document-oriented database program
+
+### Steps
+1. In main directory, open terminal and type 'npm install'
+2. Run program with 'node server.js'
+3. Now you can start request to http://localhost:3000/
+4. Run test with 'npm test'
+
 ## Documents
 
 - **[User](https://github.com/gejimayu/transactionservice/blob/master/documents/users.md)**
