@@ -83,7 +83,7 @@ module.exports = {
 						else {
 							foundOrder.status = status;
 							foundOrder.save();
-							res.status(200).json({status: 'error', message: 'Order '+ orderid + ' status has been updated'});
+							res.status(200).json({status: 'success', message: 'Order '+ orderid + ' status has been updated'});
 						}
 					}
 				});
@@ -129,7 +129,7 @@ module.exports = {
 									foundOrder.save();
 									
 									res.status(200).json({
-										status: 'error', 
+										status: 'success', 
 										message: 'Order '+ orderid + ' status has been updated',
 										shipping_id: createdShipment.id
 									});

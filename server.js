@@ -40,9 +40,6 @@ app.use(passport.initialize());
 // seedUser();
 
 //SET ROUTING
-app.use('/', function(req, res) {
-	res.send("hello");
-})
 app.use('/', UserRoutes);
 app.use('/coupons', CouponRoutes);
 app.use('/shoppingcart', ShoppingcartRoutes);
