@@ -9,7 +9,7 @@
   },
   "engines": {
     "node": "8.9.1"
-  }
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/gejimayu/transactionservice.git"
