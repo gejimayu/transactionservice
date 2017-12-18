@@ -38,3 +38,13 @@ Additional Assumptions :
 <li>Only one coupon can be applied per order. After it's applied, user can't change coupon.</li>
 <li>Updating shipping status is considered out of scope of this web API, which only handles Order Transaction</li>
 </ol>
+
+## Documents
+
+- **[User](https://github.com/gejimayu/transactionservice/blob/master/documents/users.md)**
+- **[Shopping Cart](https://github.com/gejimayu/transactionservice/blob/master/documents/shoppingcart.md)**
+- **[Order](https://github.com/gejimayu/transactionservice/blob/master/documents/order.md)**
+- **[Shipment](https://github.com/gejimayu/transactionservice/blob/master/documents/shipment.md)**
+- **[Coupon](https://github.com/gejimayu/transactionservice/blob/master/documents/coupon.md)**
+- **[Admin](https://github.com/gejimayu/transactionservice/blob/master/documents/admin.md)**
+
