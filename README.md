@@ -43,8 +43,8 @@ Additional Assumptions :
 
 ### Download
 
-1. [Node.js](https://nodejs.org/en/) - Event-driven I/O server-side JavaScript environment
-2. [Mongodb](https://www.mongodb.com/) - NoSQL, document-oriented database program
+1. [Node.js](https://nodejs.org/en/)
+2. [Mongodb](https://www.mongodb.com/)
 
 ### Steps
 1. In main directory, open terminal and type 'npm install'
