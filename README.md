@@ -47,6 +47,7 @@ Additional Assumptions :
 2. [Mongodb](https://www.mongodb.com/)
 
 ### Steps
+0. Run your mongoDB first, open CMD and type 'mongod'
 1. In main directory, open terminal and type 'npm install'
 2. Run program with 'node server.js'
 3. Now you can start request to http://localhost:3000/
